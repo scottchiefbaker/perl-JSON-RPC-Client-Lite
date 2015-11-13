@@ -49,14 +49,17 @@ if (!@params) {
 # Raw call method
 my $i = $s->_call($method,@params);
 
-if (!defined($i)) {
-	print "*** Error decoding JSON ***\nRaw Response:\n";
-	print $s->{response}->{content};
-}
-
 # Statically code the method name in your code (most readable), uses AUTOLOAD magic
 # Note: requires params to be set to SOMETHING (even undef) for AUTOLOAD magic to work
 #my $i = $s->peak->echo_data(@params);
+
+if (!defined($i)) {
+	print "*** Error decoding JSON ***\nRaw Response:\n";
+	print $s->{response}->{content};
+
+	exit(2);
+}
+
 dd($i);
 
 ###################################################################
