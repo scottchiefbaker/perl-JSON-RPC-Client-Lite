@@ -54,8 +54,9 @@ my $i = $s->_call($method,@params);
 #my $i = $s->peak->echo_data(@params);
 
 if (!defined($i)) {
-	print "*** Error decoding JSON ***\nRaw Response:\n";
-	print $s->{response}->{content};
+	my $status = $s->{response}->{status};
+	print "*** Error decoding JSON ***\nHTTP Code: $status - Response:\n";
+	print $s->{response}->{content} . "\n";
 
 	exit(2);
 }
