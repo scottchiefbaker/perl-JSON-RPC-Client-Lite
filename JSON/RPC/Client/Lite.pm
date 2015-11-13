@@ -62,7 +62,10 @@ sub _call {
 	my $ret = {};
 	eval {
 		$ret = decode_json($json_resp);
-		$ret = $ret->{result};
+
+		if ($ret->{result}) {
+			$ret = $ret->{result};
+		}
 	};
 
 	# There was an error with decoding the JSON
