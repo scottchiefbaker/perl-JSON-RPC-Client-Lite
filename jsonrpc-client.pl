@@ -1,6 +1,5 @@
 #!/usr/bin/perl
 
-use Data::Dump::Color;
 use JSON::RPC::Client::Lite;
 use Getopt::Long;
 use strict;
@@ -61,10 +60,22 @@ if (!defined($i)) {
 	exit(2);
 }
 
-dd($i);
+out($i);
 
 ###################################################################
 
 sub usage {
 	return "$0 --method echo_data [--params \"2,4,6,eight\"] [--url http://domain.com/path/] [--debug]\n";
+}
+
+# Use Data::Dump::Color if available, else Data::Dumper
+BEGIN {
+    if(eval "require Data::Dump::Color; 1") {
+		*out = \&Data::Dump::Color::dd;
+    } else {
+        require Data::Dumper;
+		*out = sub {
+			print Data::Dumper::Dumper(@_) . "\n"
+		};
+    }
 }
