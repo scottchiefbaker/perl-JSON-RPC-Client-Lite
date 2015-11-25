@@ -3,8 +3,6 @@ use vars '$AUTOLOAD';
 use HTTP::Tiny;
 use JSON::PP;
 
-#use Data::Dump::Color;
-
 sub new {
 	my $class = shift();
 	my $url   = shift();
@@ -30,14 +28,14 @@ sub new {
 
 sub _call {
 	my ($self,$method,@params) = @_;
-	my $url = $self->{api_url};
 
-	my $json = $self->create_request($method,@params);
+	my $url   = $self->{api_url};
+	my $json  = $self->create_request($method,@params);
 	my $debug = $self->{opts}->{debug};
 
 	if ($debug) {
-		print "Server URL: $url\n";
-		print "Sending   : " . $json . "\n";
+		print "RPC URL  : $url\n";
+		print "Sending  : " . $json . "\n";
 	}
 
 	my $opts = {
@@ -52,7 +50,7 @@ sub _call {
 	$self->{response} = $resp;
 
 	if ($debug) {
-		print "Received  : " . $json_resp . "\n\n";
+		print "Received : " . $json_resp . "\n\n";
 	}
 
 	if ($status != 200) {
