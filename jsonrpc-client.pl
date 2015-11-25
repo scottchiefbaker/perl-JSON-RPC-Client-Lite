@@ -13,7 +13,7 @@ my $api_url = "http://www.perturb.org/api/json-rpc/";
 
 ###################################################################
 
-my ($method);
+my ($method,$curl);
 my $params = "";
 my $debug  = 0;
 
@@ -22,6 +22,7 @@ my $ok = GetOptions(
 	"url=s"    => \$api_url,
 	"method=s" => \$method,
 	"params=s" => \$params,
+	"curl"     => \$curl,
 );
 
 # Raw called like echo_data(2,4,8)
@@ -44,6 +45,17 @@ if (!@params) {
 }
 
 ###################################################################
+
+if ($curl) {
+	my $curl = $s->curl_call($method,@params);
+	print $curl . "\n";
+	exit;
+}
+
+if ($debug > 1) {
+	my $curl = $s->curl_call($method,@params);
+	print "curl     : $curl\n";
+}
 
 # Raw call method
 my $i = $s->_call($method,@params);

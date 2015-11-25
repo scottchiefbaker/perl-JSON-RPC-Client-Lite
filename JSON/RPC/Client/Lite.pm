@@ -114,4 +114,16 @@ sub AUTOLOAD {
 	return $self;
 }
 
+sub curl_call {
+	my ($self,$method,@params) = @_;
+
+	my $json = $self->create_request($method,@params);
+	my $url  = $self->{api_url};
+
+	#curl -d '{"id":"json","method":"add","params":{"a":2,"b":3} }' -o - http://domain.com
+	my $curl = "curl -d '$json' -o - $url";
+
+	return $curl;
+}
+
 1;
