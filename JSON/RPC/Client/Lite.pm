@@ -1,7 +1,7 @@
 package JSON::RPC::Client::Lite;
 use vars '$AUTOLOAD';
 use HTTP::Tiny;
-use JSON;
+use JSON::PP;
 
 #use Data::Dump::Color;
 
