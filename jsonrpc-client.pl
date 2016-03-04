@@ -82,12 +82,12 @@ sub usage {
 
 # Use Data::Dump::Color if available, else Data::Dumper
 BEGIN {
-    if(eval "require Data::Dump::Color; 1") {
+	if(eval "require Data::Dump::Color; 1") {
 		*out = \&Data::Dump::Color::dd;
-    } else {
-        require Data::Dumper;
+	} else {
+		require Data::Dumper;
 		*out = sub {
 			print Data::Dumper::Dumper(@_) . "\n"
 		};
-    }
+	}
 }
