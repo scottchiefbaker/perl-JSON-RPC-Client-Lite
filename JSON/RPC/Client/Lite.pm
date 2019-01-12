@@ -80,9 +80,10 @@ sub create_request {
 
 	my $hash = {
 		"method"  => $method,
-		"version" => 1.1,
 		"id"      => 1,
 		"params"  => \@params,
+		#"version" => 1.1,
+		"jsonrpc" => "2.0",
 	};
 
 	my $json = encode_json($hash);
